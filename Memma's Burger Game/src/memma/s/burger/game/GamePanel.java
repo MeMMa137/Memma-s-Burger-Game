@@ -77,5 +77,23 @@ public class GamePanel extends JPanel implements ActionListener {
             startButton.setEnabled(true);
         }
     }
+    
+    public void restartGame() {
+    scoreManager.resetScore();
+    gameController.startGame();
+    timer = new GameTimer(gameSettings.getInitialTime(), new GameTimer.TimerListener() {
+        @Override
+        public void onTimeUpdate(int timeLeft) {
+            timerLabel.setText("Time: " + timeLeft);
+        }
+
+        @Override
+        public void onTimeUp() {
+            showGameOverScreen();
+        }
+    });
+    timer.start();
+}
+    
 }
 
